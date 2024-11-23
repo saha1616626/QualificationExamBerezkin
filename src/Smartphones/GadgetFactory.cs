@@ -102,5 +102,16 @@ namespace Smartphones
                 Console.WriteLine("\nМассив пустой! Данные не сохранены!\n");
             }
         }
+
+        /// <summary>
+        /// Сортировка массива по убыванию в сочетании свойств «модель» и «размер диагонали экрана
+        /// </summary>
+        public void SortingArray()
+        {
+            smartphones = smartphones.Take(numberSmartphonesArray)
+                .OrderByDescending(x => x.nameModel) // Сортировка по модели
+                .ThenByDescending(x => x.screenDiagonal) // Сортировка по диагонали экрана
+                .ToArray(); // Собираем все отсортированные данные в массив
+        }
     }
 }
