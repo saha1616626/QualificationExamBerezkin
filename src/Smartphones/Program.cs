@@ -1,108 +1,125 @@
 ﻿using Smartphones;
 using System;
 
-static void Main(string[] args)
+public class Program
 {
-    GadgetFactory gadgetFactory = null;
-
-    while (true)
+    static void Main(string[] args)
     {
-        Console.WriteLine("Выбор функции:");
-        Console.WriteLine("1 - Просмотр списка смартфонов по убыванию (по сочетанию свойств «модель» и «размер диагонали экрана» с возможностью экспорта данных)");
-        Console.WriteLine("2 - Заполнить список смартфонов (все текущие данные из списка сотрутся)");
-        Console.WriteLine("3 - Выход из программы");
-        Console.Write("\nВведите номер функции: ");
+        GadgetFactory gadgetFactory = null;
 
-        string number = Console.ReadLine();
-
-        switch (number)
+        while (true)
         {
-            case "1":
+            Console.WriteLine("\nВыбор функции:");
+            Console.WriteLine("1 - Просмотр списка смартфонов по убыванию (по сочетанию свойств «модель» и «размер диагонали экрана» с возможностью экспорта данных)");
+            Console.WriteLine("2 - Заполнить список смартфонов (все текущие данные из списка сотрутся)");
+            Console.WriteLine("3 - Выход из программы");
+            Console.Write("\nВведите номер функции: ");
 
-                if (gadgetFactory == null || gadgetFactory.numberSmartphonesArray == 0)
-                {
-                    Console.WriteLine("Список смартфонов пустой.");
-                }
-                else
-                {
-                    // Вывод массива смартфонов
-                    gadgetFactory.OutputArrayFromSmartphones();
+            string number = Console.ReadLine();
+            Console.Write("");
 
-                    // Сохранение массива в файл
-                    Console.WriteLine("Сохранить список в файл? (Да или Нет)");
-                    if (Console.ReadLine().Equals("Да", StringComparison.OrdinalIgnoreCase))
+            switch (number)
+            {
+                case "1":
+
+                    if (gadgetFactory == null || gadgetFactory.numberSmartphonesArray == 0)
                     {
+                        Console.WriteLine("Список смартфонов пустой.");
+                    }
+                    else
+                    {
+                        // Вывод массива смартфонов
                         gadgetFactory.SortingArray();
-                        Console.WriteLine("Список сохранён!");
+                        gadgetFactory.OutputArrayFromSmartphones();
+
+                        // Сохранение массива в файл
+                        Console.WriteLine("Сохранить список в файл? (Да или Нет)");
+                        if (Console.ReadLine().Equals("Да", StringComparison.OrdinalIgnoreCase))
+                        {
+                            gadgetFactory.SavingSrrayFile();
+                            Console.WriteLine("Список сохранён!");
+                        }
+
                     }
 
-                }
+                    break;
 
-                break;
-            
-            case "2":
+                case "2":
 
-                Console.Write("Введите размер списка смартфонов: ");
-                int size;
+                    Console.Write("Введите размер списка смартфонов: ");
+                    int size;
 
-                if (int.TryParse(Console.ReadLine(), out size))
-                {
-                    gadgetFactory = new GadgetFactory(size); // Произвести очистку и создание нового списка
-
-                    for (int i = 0; i < size; i++)
+                    if (int.TryParse(Console.ReadLine(), out size))
                     {
-                        Console.WriteLine($"Ввод {i + 1}-го смартфона:");
+                        gadgetFactory = new GadgetFactory(size); // Произвести очистку и создание нового списка
 
-                        Console.Write("Введите модель смартфона: ");
-                        string model = Console.ReadLine();
-
-                        decimal price;
-                        while (true)
+                        for (int i = 0; i < size; i++)
                         {
-                            Console.Write("Введите цену смартфона: ");
-                            if (decimal.TryParse(Console.ReadLine(), out price) && price >= 0)
+                            Console.WriteLine($"Ввод {i + 1}-го смартфона:");
+
+                            Console.Write("Введите модель смартфона: ");
+                            string model = Console.ReadLine();
+
+                            decimal price;
+                            while (true)
                             {
-                                break;
+                                Console.Write("Введите цену смартфона: ");
+                                if (decimal.TryParse(Console.ReadLine(), out price) && price >= 0)
+                                {
+                                    break;
+                                }
+                                Console.WriteLine("Ошибка: Введите корректную цену.");
                             }
-                            Console.WriteLine("Ошибка: Введите корректную цену.");
+
+                            decimal screenDiagonal;
+                            while (true)
+                            {
+                                Console.Write("Введите диагональ смартфона: ");
+                                if (decimal.TryParse(Console.ReadLine(), out screenDiagonal) && screenDiagonal > 0)
+                                {
+                                    break;
+                                }
+                                Console.WriteLine("Ошибка: Введите корректный размер диагонали.");
+                            }
+
+                            Smartphone smartphone = new Smartphone();
+                            smartphone.nameModel = model;
+                            smartphone.price = price;
+                            smartphone.screenDiagonal = screenDiagonal;
+
+                            gadgetFactory.AddSmartphoneArray(smartphone);
+                            Console.WriteLine("Смартфон успешно добавлен.");
                         }
 
-                        decimal screenDiagonal;
-                        while (true)
+                        // Вывод массива смартфонов
+                        gadgetFactory.SortingArray();
+                        gadgetFactory.OutputArrayFromSmartphones();
+
+                        // Сохранение массива в файл
+                        Console.WriteLine("Сохранить список в файл? (Да или Нет)");
+                        if (Console.ReadLine().Equals("Да", StringComparison.OrdinalIgnoreCase))
                         {
-                            Console.Write("Введите диагональ смартфона: ");
-                            if (decimal.TryParse(Console.ReadLine(), out screenDiagonal) && screenDiagonal > 0)
-                            {
-                                break;
-                            }
-                            Console.WriteLine("Ошибка: Введите корректный размер диагонали.");
+                            gadgetFactory.SavingSrrayFile();
+                            Console.WriteLine("Список сохранён!");
                         }
-
-                        Smartphone smartphone = new Smartphone();
-                        smartphone.nameModel = model;
-                        smartphone.price = price;
-                        smartphone.screenDiagonal = screenDiagonal;
-
-                        gadgetFactory.AddSmartphoneArray(smartphone);
-                        Console.WriteLine("Смартфон успешно добавлен.");
                     }
-                }
-                else
-                {
-                    Console.WriteLine("Ошибка: Корректно введите размер списка!");
-                }
+                    else
+                    {
+                        Console.WriteLine("Ошибка: Корректно введите размер списка!");
+                    }
 
-                break;
+                    break;
 
-            case "3":
-                Console.WriteLine("Выход из программы...");
-                break;
+                case "3":
+                    Console.WriteLine("Выход из программы...");
+                    break;
 
-            default:
-                Console.WriteLine("Ошибка: Неверный ввод!");
-                break;
+                default:
+                    Console.WriteLine("Ошибка: Неверный ввод!");
+                    break;
+            }
         }
-    }
 
-   Console.ReadLine();
+        Console.ReadLine();
+    }
 }

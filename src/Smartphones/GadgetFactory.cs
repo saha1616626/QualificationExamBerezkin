@@ -79,7 +79,7 @@ namespace Smartphones
         /// <summary>
         /// Путь к файлу со смартфонами
         /// </summary>
-        private readonly string path = @"/Smartphones.txt";
+        private readonly string path = @"E:\3comm\Documents\Предметы\Курс 4.1\Модульный экзамен 3 курс\Экзамен\src\Smartphones\Smartphones.txt"; // Полный путь для файла
 
         /// <summary>
         /// Сохранение массива в файл
@@ -88,13 +88,27 @@ namespace Smartphones
         {
             if (smartphones != null)
             {
-                using (StreamWriter writer = new StreamWriter(path))
+                try
                 {
-                    for (int i = 0; i < numberSmartphonesArray; i++)
+                    using (StreamWriter writer = new StreamWriter(path, false, System.Text.Encoding.Default))
                     {
-                        // Сохранение каждого смартфона в файл
-                        writer.WriteLine($"\n{i + 1} - смартфон\n {smartphones[i].nameModel}\n,{smartphones[i].price}\n,{smartphones[i].screenDiagonal}\n");
+                        Console.WriteLine("\nОтсортированный массив \n");
+
+                        for (int i = 0; i < numberSmartphonesArray; i++)
+                        {
+                            // Сохранение каждого смартфона в файл
+                            writer.WriteLine($"Смартфон {i + 1}:");
+                            writer.WriteLine($"Модель: {smartphones[i].nameModel}");
+                            writer.WriteLine($"Цена: {smartphones[i].price}");
+                            writer.WriteLine($"Диагональ экрана: {smartphones[i].screenDiagonal}");
+                            writer.WriteLine(); // новая строка для разделения между смартфонами
+                        }
                     }
+                    Console.WriteLine("Данные успешно сохранены в файл.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Произошла ошибка при сохранении: {ex.Message}");
                 }
             }
             else
