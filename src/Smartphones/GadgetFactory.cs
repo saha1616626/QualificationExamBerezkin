@@ -75,5 +75,32 @@ namespace Smartphones
                 Console.WriteLine("\nМассив пустой!\n");
             }
         }
+
+        /// <summary>
+        /// Путь к файлу со смартфонами
+        /// </summary>
+        private readonly string path = @"/Smartphones.txt";
+
+        /// <summary>
+        /// Сохранение массива в файл
+        /// </summary>
+        public void SavingSrrayFile()
+        {
+            if (smartphones != null)
+            {
+                using (StreamWriter writer = new StreamWriter(path))
+                {
+                    for (int i = 0; i < numberSmartphonesArray; i++)
+                    {
+                        // Сохранение каждого смартфона в файл
+                        writer.WriteLine($"\n{i + 1} - смартфон\n {smartphones[i].nameModel}\n,{smartphones[i].price}\n,{smartphones[i].screenDiagonal}\n");
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("\nМассив пустой! Данные не сохранены!\n");
+            }
+        }
     }
 }
