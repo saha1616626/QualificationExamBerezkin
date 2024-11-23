@@ -16,7 +16,7 @@ public class Program
             Console.Write("\nВведите номер функции: ");
 
             string number = Console.ReadLine();
-            Console.Write("");
+            Console.WriteLine("");
 
             switch (number)
             {
@@ -37,7 +37,7 @@ public class Program
                         if (Console.ReadLine().Equals("Да", StringComparison.OrdinalIgnoreCase))
                         {
                             gadgetFactory.SavingSrrayFile();
-                            Console.WriteLine("Список сохранён!");
+                            Console.WriteLine("\nСписок сохранён!");
                         }
 
                     }
@@ -55,7 +55,7 @@ public class Program
 
                         for (int i = 0; i < size; i++)
                         {
-                            Console.WriteLine($"Ввод {i + 1}-го смартфона:");
+                            Console.WriteLine($"\nВвод {i + 1}-го смартфона:");
 
                             Console.Write("Введите модель смартфона: ");
                             string model = Console.ReadLine();
@@ -87,8 +87,8 @@ public class Program
                             smartphone.price = price;
                             smartphone.screenDiagonal = screenDiagonal;
 
+                            Console.WriteLine("");
                             gadgetFactory.AddSmartphoneArray(smartphone);
-                            Console.WriteLine("Смартфон успешно добавлен.");
                         }
 
                         // Вывод массива смартфонов
