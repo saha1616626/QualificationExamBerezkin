@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Smartphones
 {
+    /// <summary>
+    /// Данные о смартфоне
+    /// </summary>
     public class Smartphone
     {
         /// <summary>
