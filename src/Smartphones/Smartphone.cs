@@ -28,5 +28,6 @@ namespace Smartphones
         /// Свободный конструктор
         /// </summary>
         public Smartphone() { }
+
     }
 }

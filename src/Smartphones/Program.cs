@@ -1,4 +1,5 @@
 ﻿using Smartphones;
+using System;
 
 static void Main(string[] args)
 {
@@ -41,9 +42,67 @@ static void Main(string[] args)
             
             case "2":
 
+                Console.Write("Введите размер списка смартфонов: ");
+                int size;
 
+                if (int.TryParse(Console.ReadLine(), out size))
+                {
+                    gadgetFactory = new GadgetFactory(size); // Произвести очистку и создание нового списка
 
+                    for (int i = 0; i < size; i++)
+                    {
+                        Console.WriteLine($"Ввод {i + 1}-го смартфона:");
+
+                        Console.Write("Введите модель смартфона: ");
+                        string model = Console.ReadLine();
+
+                        decimal price;
+                        while (true)
+                        {
+                            Console.Write("Введите цену смартфона: ");
+                            if (decimal.TryParse(Console.ReadLine(), out price) && price >= 0)
+                            {
+                                break;
+                            }
+                            Console.WriteLine("Ошибка: Введите корректную цену.");
+                        }
+
+                        decimal screenDiagonal;
+                        while (true)
+                        {
+                            Console.Write("Введите диагональ смартфона: ");
+                            if (decimal.TryParse(Console.ReadLine(), out screenDiagonal) && screenDiagonal > 0)
+                            {
+                                break;
+                            }
+                            Console.WriteLine("Ошибка: Введите корректный размер диагонали.");
+                        }
+
+                        Smartphone smartphone = new Smartphone();
+                        smartphone.nameModel = model;
+                        smartphone.price = price;
+                        smartphone.screenDiagonal = screenDiagonal;
+
+                        gadgetFactory.AddSmartphoneArray(smartphone);
+                        Console.WriteLine("Смартфон успешно добавлен.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Ошибка: Корректно введите размер списка!");
+                }
+
+                break;
+
+            case "3":
+                Console.WriteLine("Выход из программы...");
+                break;
+
+            default:
+                Console.WriteLine("Ошибка: Неверный ввод!");
                 break;
         }
     }
+
+   Console.ReadLine();
 }
