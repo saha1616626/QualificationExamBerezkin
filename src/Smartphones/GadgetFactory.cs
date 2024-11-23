@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Smartphones
 {
@@ -50,6 +51,28 @@ namespace Smartphones
             {
                 Console.WriteLine("Массив смартфонов заполнен.");
                 // Вывод массива смартфонов
+                OutputArrayFromSmartphones();
+            }
+        }
+
+        /// <summary>
+        /// Вывод массива смартфонов
+        /// </summary>
+        public void OutputArrayFromSmartphones()
+        {
+            if (smartphones != null)
+            {
+                for (int i = 0; i < numberSmartphonesArray; i++)
+                {
+                    Console.WriteLine($"\n{i + 1} - смартфон");
+                    Console.WriteLine("Модель: " + smartphones[i].nameModel.ToString());
+                    Console.WriteLine("Цена: " + smartphones[i].price.ToString());
+                    Console.WriteLine("Диагональ: " + smartphones[i].screenDiagonal.ToString() + "\n");
+                }
+            }
+            else
+            {
+                Console.WriteLine("\nМассив пустой!\n");
             }
         }
     }
